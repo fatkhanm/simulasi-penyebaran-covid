@@ -32,7 +32,7 @@ end
 to setup-turtles
   create-turtles initial-number-people
     [
-      set cor  random 2
+      set cor random 2
       print(cor)
       ifelse cor = 0 [setxy 8 + (-5 + random-float 10.0)  8 + (-5 + random-float 10.0)] [setxy -8 + (-5 + random-float 10.0) -8 + (-5 + random-float 10.0)]
       set age random lifespan
@@ -42,7 +42,7 @@ to setup-turtles
       set size 1.5  ;; easier to see
       get-healthy
       ifelse random 100 < %movement-allowed [set allowed-movement? true] [set allowed-movement? false] ]
-  ask n-of 2 turtles
+  ask n-of initial-infected turtles
     [ get-sick ]
   if get-vaccine = "10%" [set in-immune (0 * initial-number-people) / 100]
   if get-vaccine = "10%" [set in-immune (10 * initial-number-people) / 100]
@@ -84,7 +84,7 @@ to go
      get-older
      move
      if sick? [ recover-or-die ]
-     if sick? [infect ]
+     if sick? [ infect ]
     ]
    update-global-variables
    update-display
@@ -180,30 +180,30 @@ ticks
 30.0
 
 SLIDER
-42
-252
-236
-285
+40
+279
+234
+312
 duration
 duration
 0.0
 99.0
-20.0
+45.0
 1.0
 1
 days
 HORIZONTAL
 
 SLIDER
-42
-317
-236
-350
+41
+334
+235
+367
 chance-recover
 chance-recover
 0.0
 100.0
-75.0
+74.0
 1.0
 1
 %
@@ -211,9 +211,9 @@ HORIZONTAL
 
 SLIDER
 40
-210
+242
 234
-243
+275
 infectiousness
 infectiousness
 0.0
@@ -288,7 +288,7 @@ initial-number-people
 initial-number-people
 2
 200
-200.0
+100.0
 1
 1
 NIL
@@ -328,10 +328,10 @@ ticks / 30
 11
 
 CHOOSER
-40
-460
-185
-505
+63
+464
+208
+509
 turtle-shape
 turtle-shape
 "person" "circle" "person-age"
@@ -361,9 +361,9 @@ count turtles with [ old? = true ]
 
 SLIDER
 41
-356
-228
-389
+372
+234
+405
 chance-recover-elders
 chance-recover-elders
 0
@@ -375,27 +375,27 @@ chance-recover-elders
 HORIZONTAL
 
 SLIDER
-40
-395
-222
-428
+42
+409
+233
+442
 %movement-allowed
 %movement-allowed
 0
 100
-11.0
+100.0
 1
 1
 %
 HORIZONTAL
 
 TEXTBOX
-30
+24
 10
-250
+255
 56
 Covid-19 virus simulator
-20
+18
 105.0
 1
 
@@ -421,11 +421,26 @@ CHOOSER
 69
 99
 208
-145
+144
 get-vaccine
 get-vaccine
 "0%" "10%" "30%" "50%" "70%"
 0
+
+SLIDER
+40
+204
+234
+237
+initial-infected
+initial-infected
+1
+5
+5.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -522,7 +537,6 @@ This model is an adaptation by Maite Lopez-Sanchez (Universitat de Barcelona) of
 
 Please cite the NetLogo software as:
 * Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
-
 @#$#@#$#@
 default
 true
